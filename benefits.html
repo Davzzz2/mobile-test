@@ -21,22 +21,19 @@
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            height: 100vh;
-            background: linear-gradient(135deg, var(--cyber-blue), var(--dark-blue)); /* Gradient */
-            color: var(--stake-white); /* Text color */
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--dark-blue));
+            color: var(--stake-white);
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start; /* Align content to the top */
             text-align: center;
-            animation: fadeIn 1.5s ease-out; /* Fade-in animation for the body */
         }
 
         /* Header Styling */
         h1 {
-            margin-top: 120px; /* Adjust for navbar */
+            margin-top: 120px;
             font-size: 2.5em;
-            animation: fadeIn 3s ease-out; /* Fade-in animation for heading */
         }
 
         /* Table Styling */
@@ -44,8 +41,7 @@
             width: 100%;
             border-collapse: collapse;
             border-radius: 15px;
-            overflow: hidden; /* Hide overflow to keep rounded corners */
-            animation: fadeIn 4s ease-out; /* Fade-in animation for table */
+            overflow: hidden;
         }
 
         table, th, td {
@@ -67,28 +63,22 @@
             background-color: rgba(0, 0, 0, 0.3);
         }
 
-        /* Add a scrollable container for the table */
+        /* Scrollable Table */
         .table-container {
             width: 80%;
             max-width: 1000px;
             margin-top: 40px;
-            overflow-y: auto; /* Enable vertical scroll */
-            max-height: 700px; /* Increase height to display more rows */
+            overflow-y: auto;
+            max-height: 700px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
             padding: 10px;
             background-color: rgba(0, 0, 0, 0.5);
-            display: flex;
         }
 
-        .table-wrapper {
-            flex: 1; /* Ensure the table takes most of the width */
-        }
-
-        /* Information Message Styling */
         .info-message {
-            display: none; /* Hide the information by default */
-            background-color: rgba(0, 0, 0, 0.7); /* Dark background */
+            display: none;
+            background-color: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 5px 5px;
             font-size: 0.9em;
@@ -96,47 +86,27 @@
             max-width: 400px;
             text-align: center;
             margin-top: 20px;
-            animation: fadeInText 0.5s ease-out; /* Fade-in effect */
             position: absolute;
-            top: 150px; /* Position it below the header */
-            left: 39%; /* Position it to the right of the table */
+            top: 150px;
+            left: 39%;
             z-index: 9999;
         }
 
-        /* Button-like Information Icon */
         .info-icon {
-            position: relative; /* Make it a reference for positioning the tooltip */
             cursor: pointer;
             font-weight: bold;
-            color: var(--neon-blue); /* Blue color for the "i" icon */
+            color: var(--neon-blue);
             font-size: 1.3em;
-            margin-left: 8px; /* Add space between TOTAL and icon */
+            margin-left: 8px;
             border: none;
             background-color: transparent;
-            font-size: 1.5em;
             padding: 5px 10px;
-            transition: background-color 0.3s;
         }
 
-        .info-icon:hover {
-            background-color: rgba(0, 0, 0, 0.2); /* Change background color on hover */
-        }
-
-        /* Fade-in animation for the information message */
-        @keyframes fadeInText {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        /* Styling for the navbar */
         .cyber-navbar {
             background: rgba(0, 4, 40, 0.8);
             backdrop-filter: blur(10px);
-            padding: 1rem 2rem; /* Reduced padding for a smaller navbar */
+            padding: 1rem 2rem;
             position: fixed;
             top: 1rem;
             left: 15%;
@@ -160,161 +130,141 @@
         .nav-links {
             display: flex;
             gap: 2.5rem;
-            justify-content: center;
-            align-items: center;
         }
 
         .nav-link {
             color: var(--stake-white);
             text-decoration: none;
             font-weight: 600;
-            font-size: 1.3rem; /* Reduced font size */
+            font-size: 1.3rem;
             transition: all 0.3s ease;
-            text-shadow: 0 0 5px var(--glow-blue);
         }
 
         .nav-link:hover {
             color: var(--neon-blue);
-            text-shadow: 0 0 10px var(--glow-blue);
         }
 
         .nav-logo {
-            height: 45px; /* Keep the size from before */
+            height: 45px;
             filter: drop-shadow(0 0 10px var(--glow-blue));
-            animation: fadeIn 2s ease-out; /* Fade-in animation for logo */
-            position: relative;
-            left: -20px; /* Move the logo to the left */
         }
 
-        /* Social Media Buttons */
-        .social-buttons {
-            margin-top: 40px;
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-        }
-
-        .social-button {
-            background-color: #333;
-            border-radius: 50%;
-            padding: 10px;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        .social-button i {
-            color: white;
-            font-size: 1.5em;
-        }
-
-        .social-button:hover {
-            background-color: var(--neon-blue);
-        }
-
+        /* Social Links */
         .social-links {
-            position: fixed; /* Fix position to the right side */
-            right: 10px; /* Position from the right side */
-            top: 50%; /* Center vertically */
-            transform: translateY(-50%); /* Adjust for exact vertical centering */
+            position: fixed;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
             display: flex;
-            flex-direction: column; /* Stack buttons vertically */
-            gap: 1rem; /* Space between icons */
-            justify-content: center;
-            align-items: center;
-            z-index: 1000; /* Ensure they are above other content */
+            flex-direction: column;
+            gap: 1rem;
+            z-index: 1000;
         }
 
         .social-link {
-            width: 60px; /* Increased size */
-            height: 60px; /* Increased size */
+            width: 60px;
+            height: 60px;
             background-size: cover;
             background-position: center;
             border-radius: 50%;
             box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            display: inline-block; /* Ensure it's a block element */
-            border: 2px solid var(--neon-blue); /* Optional border */
+            transition: transform 0.3s ease;
         }
 
         .social-link:hover {
             transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
-        }
-
-        #kick-link {
-            background-image: url('https://i.pinimg.com/736x/f6/4f/56/f64f5611aabc03a17fa0a1ddfc7d0490.jpg');
-        }
-
-        #yt-link {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png');
-        }
-
-        #twitter-link {
-            background-image: url('https://img.freepik.com/vektoren-kostenlos/neues-twitter-logo-x-icon-design-2023_1017-45418.jpg?t=st=1734191515~exp=1734195115~hmac=5bfeabf55a31a7cf0771ea83cf61905033b74c0d7a8bbb127ed07a70b35e74bc&w=826');
-        }
-
-        #stake-link {
-            background-image: url('https://cdn.dribbble.com/userupload/15215544/file/still-2778c286e035a4d088fe2e7af4a18fef.png?resize=1400x1050');
-        }
-        #discord-link {
-            background-image: url('https://banner2.cleanpng.com/20180628/ii/aayi53218.webp');
-            background-size: cover;
-            background-position: center;
         }
 
         /* Scrollbar Styling */
         ::-webkit-scrollbar {
-            width: 12px; /* Set the width of the scrollbar */
-            background-color: #000000; /* Black background */
-            border-radius: 10px; /* Rounded edges */
+            width: 12px;
+            background-color: #000000;
         }
 
         ::-webkit-scrollbar-thumb {
-            background-color: var(--neon-blue); /* Blue scrollbar thumb */
+            background-color: var(--neon-blue);
             border-radius: 10px;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background-color: var(--light-blue); /* Change color on hover */
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8em;
+                margin-top: 100px;
+            }
+
+            .cyber-navbar {
+                flex-direction: column;
+                padding: 0.5rem;
+                top: 0;
+                left: 0;
+                right: 0;
+                margin: 0;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-link {
+                font-size: 1rem;
+            }
+
+            .table-container {
+                width: 95%;
+                max-height: 400px;
+            }
+
+            .info-message {
+                left: 10%;
+                top: 120px;
+                max-width: 90%;
+            }
+
+            .social-links {
+                right: 0;
+                bottom: 20px;
+                top: auto;
+                flex-direction: row;
+                width: 100%;
+                gap: 0.5rem;
+                justify-content: space-around;
+            }
+
+            .social-link {
+                width: 50px;
+                height: 50px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <!-- Navbar Section -->
+    <!-- Navbar -->
     <nav class="cyber-navbar">
         <div class="nav-container">
             <img src="stake.webp" alt="Stake" class="nav-logo">
             <div class="nav-links">
                 <a href="../home.html" class="nav-link">Home</a>
                 <a href="../leaderboard/index.html" class="nav-link">Leaderboard</a>
-		<a href="../StreamRewards/index.html" class="nav-link">Stream Rewards</a>
-                <a href="https://gambleassist.pro" class="nav-link" target="_blank">GambleAssist</a>
+                <a href="../StreamRewards/index.html" class="nav-link">Stream Rewards</a>
             </div>
         </div>
     </nav>
 
     <h1>Rank Up and Mini Benefits</h1>
 
-    <!-- Scrollable Table and Info Section -->
     <div class="table-container">
-        <div class="table-wrapper">
-            <table>
-                <thead>
-                    <tr>
-                        <th>RANK</th>
-                        <th>WAGER</th>
-                        <th>Reward from Support</th>
-                        <th>Reward from Enjayy</th>
-                        <th>
-                            TOTAL
-                            <!-- Information Icon (Now a button) -->
-                            <button class="info-icon" onclick="toggleInfoMessage()">i</button>
-                        </th>
-                    </tr>
-                </thead>
+        <table>
+            <thead>
+                <tr>
+                    <th>RANK</th>
+                    <th>WAGER</th>
+                    <th>Reward</th>
+                    <th>TOTAL</th>
+                </tr>
+            </thead>
 <tbody>
                 <tr>
                     <td>Mini Benefit</td>
@@ -485,25 +435,10 @@
                     <td>$22,521.5</td>
                 </tr>
             </tbody>
-            </table>
-        </div>
-    </div>
-
-    <!-- Information Message -->
-    <div class="info-message">
-        <p><strong>Total only counts the amount of the rewards from Enjayy, not from Support.</p>
-    </div>
-
-    <div class="social-links">
-        <a href="http://kick.com/enjayy" target="_blank" class="social-link" id="kick-link"></a>
-        <a href="https://youtube.com/@imenjayy" target="_blank" class="social-link" id="yt-link"></a>
-        <a href="https://x.com/imEnjayy" target="_blank" class="social-link" id="twitter-link"></a>
-        <a href="http://stake.com/?c=penny" target="_blank" class="social-link" id="stake-link"></a>
-        <a href="https://discord.gg/enjayy" target="_blank" class="social-link" id="discord-link"></a>
+        </table>
     </div>
 
     <script>
-        // Function to toggle the visibility of the information message
         function toggleInfoMessage() {
             var message = document.querySelector('.info-message');
             message.style.display = message.style.display === 'block' ? 'none' : 'block';
