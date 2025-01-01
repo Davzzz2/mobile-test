@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rank Up and Mini Benefits</title>
+    <link rel="icon" href="pennypts.ico" type="image/x-icon">
+    <script src="../script.js" defer></script>
+    <style>
+        /* Define the color scheme */
+        :root {
+            --cyber-blue: #000428;
+            --neon-blue: #00f7ff;
+            --dark-blue: #004e92;
+            --light-blue: #2196f3;
+            --stake-white: #ffffff;
+            --glow-blue: rgba(0, 247, 255, 0.5);
+        }
+
+        /* General Styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: linear-gradient(135deg, var(--cyber-blue), var(--dark-blue));
+            /* Gradient */
+            color: var(--stake-white);
+            /* Text color */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* Align content to the top */
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+            /* Fade-in animation for the body */
+        }
+
+        /* Header Styling */
+        h1 {
+            margin-top: 120px;
+            /* Adjust for navbar */
+            font-size: 2.5em;
+            animation: fadeIn 3s ease-out;
+            /* Fade-in animation for heading */
+        }
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 15px;
+            overflow: hidden;
+            /* Hide overflow to keep rounded corners */
+            animation: fadeIn 4s ease-out;
+            /* Fade-in animation for table */
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid var(--neon-blue);
+        }
+
+        th,
+        td {
+            padding: 12px 20px;
+            text-align: center;
+            color: var(--stake-white);
+            font-size: 1.1em;
+        }
+
+        th {
+            background-color: var(--dark-blue);
+        }
+
+        td {
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Add a scrollable container for the table */
+        .table-container {
+            width: 100%;
+            max-width: 1000px;
+            margin-top: 40px;
+            overflow-y: auto;
+            /* Enable vertical scroll */
+            max-height: 700px;
+            /* Increase height to display more rows */
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper {
+            flex: 1;
+            /* Ensure the table takes most of the width */
+        }
+
+        /* Information Message Styling */
+        .info-message {
+            display: none;
+            /* Hide the information by default */
+            background-color: rgba(0, 0, 0, 0.7);
+            /* Dark background */
+            color: white;
+            padding: 5px 5px;
+            font-size: 0.9em;
+            border-radius: 10px;
+            max-width: 400px;
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeInText 0.5s ease-out;
+            /* Fade-in effect */
+            position: absolute;
+            top: 150px;
+            /* Position it below the header */
+            left: 39%;
+            /* Position it to the right of the table */
+            z-index: 9999;
+        }
+
+        /* Button-like Information Icon */
+        .info-icon {
+            position: relative;
+            /* Make it a reference for positioning the tooltip */
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--neon-blue);
+            /* Blue color for the "i" icon */
+            font-size: 1.3em;
+            margin-left: 8px;
+            /* Add space between TOTAL and icon */
+            border: none;
+            background-color: transparent;
+            font-size: 1.5em;
+            padding: 5px 10px;
+            transition: background-color 0.3s;
+        }
+
+        .info-icon:hover {
+            background-color: rgba(0, 0, 0, 0.2);
+            /* Change background color on hover */
+        }
+
+        /* Fade-in animation for the information message */
+        @keyframes fadeInText {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* Styling for the navbar */
+        .cyber-navbar {
+            background: rgba(0, 4, 40, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            /* Reduced padding for a smaller navbar */
+            position: fixed;
+            top: 1rem;
+            left: 15%;
+            right: 15%;
+            z-index: 1000;
+            border-bottom: 1px solid var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--stake-white);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.3rem;
+            /* Reduced font size */
+            transition: all 0.3s ease;
+            text-shadow: 0 0 5px var(--glow-blue);
+        }
+
+        .nav-link:hover {
+            color: var(--neon-blue);
+            text-shadow: 0 0 10px var(--glow-blue);
+        }
+
+        .nav-logo {
+            height: 45px;
+            /* Keep the size from before */
+            filter: drop-shadow(0 0 10px var(--glow-blue));
+            animation: fadeIn 2s ease-out;
+            /* Fade-in animation for logo */
+            position: relative;
+            left: -20px;
+            /* Move the logo to the left */
+        }
+
+        /* Social Media Buttons */
+        .social-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .social-button {
+            background-color: #333;
+            border-radius: 50%;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .social-button i {
+            color: white;
+            font-size: 1.5em;
+        }
+
+        .social-button:hover {
+            background-color: var(--neon-blue);
+        }
+
+        .social-links {
+            position: fixed;
+            /* Fix position to the right side */
+            right: 10px;
+            /* Position from the right side */
+            top: 50%;
+            /* Center vertically */
+            transform: translateY(-50%);
+            /* Adjust for exact vertical centering */
+            display: flex;
+            flex-direction: column;
+            /* Stack buttons vertically */
+            gap: 1rem;
+            /* Space between icons */
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            /* Ensure they are above other content */
+        }
+
+        .social-link {
+            width: 60px;
+            /* Increased size */
+            height: 60px;
+            /* Increased size */
+            background-size: cover;
+            background-position: center;
+            border-radius: 50%;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: inline-block;
+            /* Ensure it's a block element */
+            border: 2px solid var(--neon-blue);
+            /* Optional border */
+        }
+
+        .social-link:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 1);
+        }
+
+        #kick-link {
+            background-image: url('https://i.pinimg.com/736x/f6/4f/56/f64f5611aabc03a17fa0a1ddfc7d0490.jpg');
+        }
+
+        #yt-link {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png');
+        }
+
+        #twitter-link {
+            background-image: url('https://img.freepik.com/vektoren-kostenlos/neues-twitter-logo-x-icon-design-2023_1017-45418.jpg?t=st=1734191515~exp=1734195115~hmac=5bfeabf55a31a7cf0771ea83cf61905033b74c0d7a8bbb127ed07a70b35e74bc&w=826');
+        }
+
+        #stake-link {
+            background-image: url('https://cdn.dribbble.com/userupload/15215544/file/still-2778c286e035a4d088fe2e7af4a18fef.png?resize=1400x1050');
+        }
+
+        #discord-link {
+            background-image: url('https://banner2.cleanpng.com/20180628/ii/aayi53218.webp');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 12px;
+            /* Set the width of the scrollbar */
+            background-color: #000000;
+            /* Black background */
+            border-radius: 10px;
+            /* Rounded edges */
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--neon-blue);
+            /* Blue scrollbar thumb */
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--light-blue);
+            /* Change color on hover */
+        }
+
+        .cyber-navbar-mobile {
+            display: none;
+        }
+
+        #close-sidebar-button {
+            display: none;
+            background: none;
+            border: none;
+            padding: 1em;
+            cursor: pointer;
+        }
+
+        #open-sidebar-button {
+            display: none;
+            position: relative;
+            background: none;
+            border: none;
+            padding: 1em;
+            margin-left: auto;
+            cursor: pointer;
+        }
+
+        .social-links-new{
+            display: none;
+        }
+
+
+
+        @media screen and (max-width: 1000px) {
+
+            #open-sidebar-button,
+            #close-sidebar-button {
+                display: block;
+            }
+
+            nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: min(15em, 100%);
+                z-index: 10;
+                border-left: 1px solid var(--hover-color);
+                transition: right 300ms ease-in-out;
+
+            }
+
+            nav.show {
+                right: 0;
+            }
+
+            nav.show~#overlay {
+                display: block;
+            }
+
+            nav ul {
+                width: 100%;
+                flex-direction: column;
+            }
+
+            nav a {
+                width: 100%;
+                padding-left: 2.5em;
+            }
+
+            nav a.active-link {
+                border-bottom: none;
+            }
+
+            nav .home-li {
+                margin-right: unset;
+            }
+
+            .cyber-navbar {
+                display: none;
+            }
+
+            .cyber-navbar-mobile {
+                display: none;
+                position: fixed;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+                z-index: 10;
+                width: 100%;
+                border-left: 1px solid var(--hover-color);
+                transition: right 300ms ease-in-out;
+                background: linear-gradient(135deg, var(--cyber-blue), var(--dark-blue));
+                left: 0%;
+
+            }
+
+            .cyber-navbar-mobile .nav-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100%;
+            }
+
+            .cyber-navbar-mobile .nav-links {
+                display: flex;
+                height: 100%;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .rect-box {
+                margin: 0 2rem;
+            }
+
+            .header-title {
+                font-size: 2rem;
+                font-weight: 400;
+                margin-top: 0px;
+            }
+
+            .social-links {
+                display: none;
+            }
+
+            .info-message {
+                display: none;
+                top: 90px;
+                font-size: 0.6rem;
+                left: 12%;
+            }
+
+        .social-links-new{
+            display: block;
+        }
+        
+    }
+        
+
+        @media screen and (max-width: 420px) {
+            .info-message {
+                display: none;
+                top: 130px;
+                font-size: 0.6rem;
+                left: 0%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar Section -->
+    <div class="cyber-navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+            </a>
+            <div class="nav-links">
+                <a href="../leaderboard/index.html" class="nav-link">Leaderboard</a>
+                <a href="benefits.html" class="nav-link">Benefits</a>
+                <a href="../StreamRewards/index.html" class="nav-link">Stream Rewards</a>
+                <a href="https://gambleassist.pro" class="nav-link" target="_blank">GambleAssist</a>
+            </div>
+        </div>
+    </div>
+
+    <button id="open-sidebar-button" onclick="openSidebar()" aria-label="open sidebar" aria-expanded="false"
+        aria-controls="navbar">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9">
+            <path
+                d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z" />
+        </svg>
+    </button>
+
+    <div class="cyber-navbar-mobile" id="cyber-navbar-mobile">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+            </a>
+            <div class="nav-links">
+                <button id="close-sidebar-button" onclick="closeSidebar()" aria-label="close sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px"
+                        fill="#c9c9c9">
+                        <path
+                            d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z" />
+                    </svg>
+                </button>
+                <a href="../leaderboard/index.html" class="nav-link">Leaderboard</a>
+                <a href="benefits.html" class="nav-link">Benefits</a>
+                <a href="../StreamRewards/index.html" class="nav-link">Stream Rewards</a>
+                <a href="https://gambleassist.pro" class="nav-link" target="_blank">GambleAssist</a>
+            </div>
+        </div>
+    </div>
+
+    <h1 class="header-title">Rank Up and Mini Benefits</h1>
+
+    <!-- Scrollable Table and Info Section -->
+    <div class="table-container">
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>RANK</th>
+                        <th>WAGER</th>
+                        <th>Reward from Support</th>
+                        <th>Reward from Enjayy</th>
+                        <th>
+                            TOTAL
+                            <!-- Information Icon (Now a button) -->
+                            <button class="info-icon" onclick="toggleInfoMessage()">i</button>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$5,000</td>
+                        <td></td>
+                        <td>$2.5</td>
+                        <td>$2.5</td>
+                    </tr>
+                    <tr>
+                        <td>Bronze</td>
+                        <td>$10,000</td>
+                        <td>$15</td>
+                        <td>$15</td>
+                        <td>$17.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$20,000</td>
+                        <td></td>
+                        <td>$7</td>
+                        <td>$24.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$40,000</td>
+                        <td></td>
+                        <td>$13</td>
+                        <td>$37.5</td>
+                    </tr>
+                    <tr>
+                        <td>Silver</td>
+                        <td>$50,000</td>
+                        <td>$50</td>
+                        <td>$25</td>
+                        <td>$62.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$75,000</td>
+                        <td></td>
+                        <td>$25</td>
+                        <td>$87.5</td>
+                    </tr>
+                    <tr>
+                        <td>Gold</td>
+                        <td>$100,000</td>
+                        <td>$100</td>
+                        <td>$35</td>
+                        <td>$122.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$150,000</td>
+                        <td></td>
+                        <td>$39</td>
+                        <td>$161.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$200,000</td>
+                        <td></td>
+                        <td>$60</td>
+                        <td>$221.5</td>
+                    </tr>
+                    <tr>
+                        <td>Plat 1</td>
+                        <td>$250,000</td>
+                        <td>$200</td>
+                        <td>$50</td>
+                        <td>$271.5</td>
+                    </tr>
+                    <tr>
+                        <td>Plat 2</td>
+                        <td>$500,000</td>
+                        <td>$400</td>
+                        <td>$100</td>
+                        <td>$371.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$600,000</td>
+                        <td></td>
+                        <td>$130</td>
+                        <td>$501.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$900,000</td>
+                        <td></td>
+                        <td>$255</td>
+                        <td>$756.5</td>
+                    </tr>
+                    <tr>
+                        <td>Plat 3</td>
+                        <td>$1,000,000</td>
+                        <td>$800</td>
+                        <td>$175</td>
+                        <td>$931.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$1,500,000</td>
+                        <td></td>
+                        <td>$390</td>
+                        <td>$1,321.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$2,000,000</td>
+                        <td></td>
+                        <td>$600</td>
+                        <td>$1,921.5</td>
+                    </tr>
+                    <tr>
+                        <td>Plat 4</td>
+                        <td>$2,500,000</td>
+                        <td>$1,600</td>
+                        <td>$325</td>
+                        <td>$2,246.5</td>
+                    </tr>
+                    <tr>
+                        <td>Plat 5</td>
+                        <td>$5,000,000</td>
+                        <td>$3,200</td>
+                        <td>$700</td>
+                        <td>$2,946.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$6,000,000</td>
+                        <td></td>
+                        <td>$1,300</td>
+                        <td>$4,246.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$9,000,000</td>
+                        <td></td>
+                        <td>$2,550</td>
+                        <td>$6,796.5</td>
+                    </tr>
+                    <tr>
+                        <td>Plat 6</td>
+                        <td>$10,000,000</td>
+                        <td>$6,400</td>
+                        <td>$1,250</td>
+                        <td>$8,046.5</td>
+                    </tr>
+                    <tr>
+                        <td>Mini Benefit</td>
+                        <td>$15,000,000</td>
+                        <td></td>
+                        <td>$3,975</td>
+                        <td>$12,021.5</td>
+                    </tr>
+                    <tr>
+                        <td>Diamond 1</td>
+                        <td>$25,000,000</td>
+                        <td>$12,800</td>
+                        <td>$3,000</td>
+                        <td>$15,021.5</td>
+                    </tr>
+                    <tr>
+                        <td>Diamond 2</td>
+                        <td>$50,000,000</td>
+                        <td>$25,600</td>
+                        <td>$7,500</td>
+                        <td>$22,521.5</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Information Message -->
+    <div class="info-message">
+        <p><strong>Total only counts the amount of the rewards from Enjayy, not from Support.</p>
+    </div>
+<div>
+    <div class="social-links-new">
+        <a href="http://kick.com/enjayy" target="_blank" class="social-link" id="kick-link"></a>
+        <a href="https://youtube.com/@imenjayy" target="_blank" class="social-link" id="yt-link"></a>
+        <a href="https://x.com/imEnjayy" target="_blank" class="social-link" id="twitter-link"></a>
+        <a href="http://stake.com/?c=penny" target="_blank" class="social-link" id="stake-link"></a>
+        <a href="https://discord.gg/enjayy" target="_blank" class="social-link" id="discord-link"></a>
+    </div>
+</div>
+
+<div>
+    <div class="social-links">
+        <a href="http://kick.com/enjayy" target="_blank" class="social-link" id="kick-link"></a>
+        <a href="https://youtube.com/@imenjayy" target="_blank" class="social-link" id="yt-link"></a>
+        <a href="https://x.com/imEnjayy" target="_blank" class="social-link" id="twitter-link"></a>
+        <a href="http://stake.com/?c=penny" target="_blank" class="social-link" id="stake-link"></a>
+        <a href="https://discord.gg/enjayy" target="_blank" class="social-link" id="discord-link"></a>
+    </div>
+</div>
+
+
+    <script>
+        // Function to toggle the visibility of the information message
+        function toggleInfoMessage() {
+            var message = document.querySelector('.info-message');
+            message.style.display = message.style.display === 'block' ? 'none' : 'block';
+        }
+    </script>
+</body>
+
+</html>
